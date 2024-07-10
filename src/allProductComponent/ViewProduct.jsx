@@ -13,9 +13,10 @@ const ViewProduct = ({ fetch, setCartItem, cartItem }) => {
   const addItemToCart = async (item) => {
     if (!cartItem.some((i) => i.id === item.id)) { // Check if the item is not already in the cart
       const { id, url, name, design, rate } = item;
-  
+      setCartItem((prevCartItems) => [...prevCartItems, item]);
+
       try {
-        const response = await api.post("/cart", {
+        await api.post("/cart", {
           id,
           url,
           name,
@@ -24,7 +25,7 @@ const ViewProduct = ({ fetch, setCartItem, cartItem }) => {
         });
         const responsecart = await api.get('/cart');
         setCartItem(responsecart.data);
-        console.log(response.data); // Handle the response data as needed
+        console.log('Item added to cart:', item);
       } catch (error) {
         console.log(`Error updating cart value: ${error.message}`);
       }
