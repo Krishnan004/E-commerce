@@ -7,22 +7,26 @@ const Cart = ({ cartItem, setCartItem }) => {
   const [quantities, setQuantities] = useState({});
 
   useEffect(() => {
+    if(cartItem.length>0){
     calculateTotal();
-  }, [quantities]);
+    }
+  }, [cartItem]);
 
   const calculateTotal = () => {
     const total = cartItem.reduce((acc, item) => {
-      const quantity = quantities[item.id] || 1; // Default quantity is 1 if not set
-      return acc + (item.rate * quantity);
+      const quantity = quantities[item.product_id] || 1; // Default quantity is 1 if not set
+      return acc + (item.price * quantity);
     }, 0);
     setTotalAmount(total);
   };
 
+ 
+
   const deleteItemFromCart = async (id) => {
     try {
       await api.delete(`/cart/${id}`);
-      const responsecart = await api.get('/cart');
-      setCartItem(responsecart.data);
+      // Filter out the deleted item from the cartItem state directly
+      setCartItem(prevItems => prevItems.filter(item => item.product_id !== id));
     } catch (error) {
       console.log(`Error deleting cart item: ${error.message}`);
     }
@@ -54,24 +58,25 @@ const Cart = ({ cartItem, setCartItem }) => {
               </thead>
               <tbody>
                 {cartItem.map((item) => (
-                  <tr key={item.id} className="border-t">
+                  <tr key={item.cart_id} className="border-t grid grid-cols-1 sm:table-row">
                     <td className="py-2 px-4">
-                      <img src={item.url} alt={item.name} className="w-16 h-16 object-cover" />
+                      <img src={`https://e-com-server-1-9p85.onrender.com/upload/${item.product_src}`} alt={item.name} className="w-16 h-16 object-cover" />
                     </td>
-                    <td className="py-2 px-4">{item.name}</td>
-                    <td className="py-2 px-4">{item.rate}</td>
+                    <td className="py-2 px-4"><span className="font-semibold sm:hidden">Product : </span>{item.name}</td>
+                    <td className="py-2 px-4"><span className="font-semibold sm:hidden">Price : </span>{item.price}</td>
                     <td className="py-2 px-4">
+                      <span className="font-semibold sm:hidden">Quantity : </span>
                       <input
                         type="number"
-                        value={quantities[item.id] || 1} // Default value is 1 if quantity is not defined
-                        onChange={(e) => handleQuantityChange(item.id, parseInt(e.target.value))}
+                        value={quantities[item.product_id] || 1} // Default value is 1 if quantity is not defined
+                        onChange={(e) => handleQuantityChange(item.product_id, parseInt(e.target.value))}
                         className="w-16 text-center"
                       />
                     </td>
-                    <td className="py-2 px-4">{(item.rate * (quantities[item.id] || 1)).toFixed(2)}</td> {/* Calculate subtotal dynamically */}
+                    <td className="py-2 px-4"><span className="font-semibold sm:hidden">Subtotal : </span>{(item.price * (quantities[item.product_id] || 1)).toFixed(2)}</td>
                     <td className="py-2 px-4">
                       <button
-                        onClick={() => deleteItemFromCart(item.id)}
+                        onClick={() => deleteItemFromCart(item.product_id)}
                         className="bg-red-500 text-white p-2 rounded"
                       >
                         Remove
@@ -81,14 +86,12 @@ const Cart = ({ cartItem, setCartItem }) => {
                 ))}
               </tbody>
               <tfoot className="w-full flex justify-between border-t p-4">
-                <div className="flex flex-col md:flex-row gap-4">
-                  <input type="text" className="border p-2" placeholder="Coupon code" />                
-                  <button
-                    className="bg-red-500 text-white p-2 rounded"
-                  >
+                <section className="flex flex-col md:flex-row gap-4">
+                  <input type="text" className="border p-2" placeholder="Coupon code" />
+                  <button className="bg-red-500 text-white p-2 rounded">
                     APPLY COUPON
                   </button>
-                </div>
+                </section>
               </tfoot>
             </table>
           </div>
@@ -102,7 +105,7 @@ const Cart = ({ cartItem, setCartItem }) => {
             </div>
             <Link to="/cart/checkout" state={{ total: totalAmount, item: cartItem, quant: quantities }}>
               <button className="border-2 border-white text-white bg-red-500 rounded-xl p-2 px-4 hover:bg-red-600 w-full md:w-48 mt-4">
-              PROCEED TO CHECKOUT
+                PROCEED TO CHECKOUT
               </button>
             </Link>
           </div>
@@ -110,14 +113,11 @@ const Cart = ({ cartItem, setCartItem }) => {
       ) : (
         <h1 className="text-center">Your cart is currently empty.</h1>
       )}
-      <Link 
-        to="/allproduct" 
-      >
+      <Link to="/allproduct">
         <button className="border-2 border-white text-white bg-red-500 rounded-xl p-2 px-4 hover:bg-red-600 w-full md:w-48 mt-4">
           RETURN TO SHOP
         </button>
       </Link>
-
     </div>
   );
 };

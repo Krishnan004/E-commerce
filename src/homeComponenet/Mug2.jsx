@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import api from '../api/mainurl';
-import { FaIoxhost } from 'react-icons/fa';
 
-const Mug = () => {
+const Mug2 = () => {
 
     const [product,setProduct]=useState([])
 
@@ -27,7 +26,7 @@ const Mug = () => {
                 </div>
             </div>
             <div className="sm:flex justify-around gap-8 text-gray-500 p-6">
-            {product.slice(0,4).map(item=>(
+            {product.slice(4,8).map(item=>(
                 <div key={item.product_id}>
                     <img src={`https://e-com-server-1-9p85.onrender.com/upload/${item.product_src}`} alt="" className="size-64"/>
                     <div className="text-center">
@@ -76,4 +75,4 @@ const Mug = () => {
     )
 }
 
-export default Mug
+export default Mug2

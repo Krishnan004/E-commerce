@@ -12,8 +12,7 @@ const Header = ({ cartItem, setCartItem }) => {
   const deleteItemFromCart = async (id) => {
     try {
       const response = await api.delete(`/cart/${id}`);
-      const responsecart = await api.get('/cart');
-      setCartItem(responsecart.data);
+      setCartItem(prevItems => prevItems.filter(item => item.product_id !== id));
       console.log(response.data); // Handle the response data as needed
     } catch (error) {
       console.log(`Error deleting cart item: ${error.message}`);
@@ -102,7 +101,7 @@ const Header = ({ cartItem, setCartItem }) => {
       )}
 
       {/* Shopping Cart Sidebar */}
-      <div className={`overflow-hidden transition-opacity duration-500 ${cart ? 'opacity-100' : 'opacity-0'}`}>
+      <div className={` transition-all duration-300  ${cart ? 'opacity-100' : 'opacity-0 '}`}>
         <div className={`border-2 bg-white absolute top-20 right-0 w-screen sm:w-2/6 h-screen drop-shadow-2xl p-4 ${cart ? 'block' : 'hidden'}`}>
           <div className="border-b flex justify-between">
             <p className="text-lg font-bold">Shopping Cart</p>
@@ -110,14 +109,14 @@ const Header = ({ cartItem, setCartItem }) => {
           </div>
           {cartItem && cartItem.length > 0 ? (
             cartItem.map((item) => (
-              <div key={item.id} className="p-2">
+              <div key={item.product_id} className="p-2">
                 <div className="flex justify-between items-center">
-                  <img src={item.url} alt="" className="w-12 h-12 object-cover" />
+                  <img src={`https://e-com-server-1-9p85.onrender.com/upload/${item.product_src}`} alt="" className="w-12 h-12 object-cover" />
                   <div className="ml-4 flex-grow">
                     <p className="font-semibold">{item.design}</p>
-                    <p>1 × £15.00</p>
+                    <p>1 × £{item.price}</p>
                   </div>
-                  <RxCross2 className="ml-4 cursor-pointer" onClick={() => deleteItemFromCart(item.id)} />
+                  <RxCross2 className="ml-4 cursor-pointer" onClick={() => deleteItemFromCart(item.product_id)} />
                 </div>
               </div>
             ))

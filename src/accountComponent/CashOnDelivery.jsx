@@ -18,7 +18,7 @@ const CashOnDelivery = () => {
         <div className="text-gray-600 p-12 flex flex-col gap-6 bg-slate-50">
             <h1 className="text-4xl">Checkout</h1>
             <p className="text-sm">Thank you. Your order has been received.</p>
-            <div className="flex divide-x-2 gap-6 text-xs">
+            <div className="flex flex-col sm:flex-row divide-2  gap-6 text-xs">
                 <label htmlFor="">ORDER NUMBER:</label>
                 <label htmlFor="">DATE: <span className="font-semibold block text-lg">{currentDate}</span></label>
                 <label htmlFor="">TOTAL: <span className="font-semibold block text-lg">£{total.toFixed(2)}</span></label>
@@ -33,9 +33,9 @@ const CashOnDelivery = () => {
                         <td >Total</td>
                     </tr>
                     {item.map((i) => (
-                    <tr>
-                        <td>{i.name} x {quant[i.id] || 1}</td>
-                        <td>£{(i.rate * (quant[i.id] || 1)).toFixed(2)}</td>
+                    <tr key={i.product_id}>
+                        <td>{i.name} x {quant[i.product_id] || 1}</td>
+                        <td>£{(i.price * (quant[i.product_id] || 1)).toFixed(2)}</td>
                     </tr>
                     ))}
                     <tr>

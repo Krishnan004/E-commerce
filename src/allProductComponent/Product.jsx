@@ -40,13 +40,13 @@ const Product = ({fetch}) => {
         // Sort logic for average rating
         break;
       case 'date':
-        // Sort logic for latest
+        sortedProducts.sort((a, b) => new Date(a.updated_at) - new Date(b.updated_at));
         break;
       case 'price':
-        sortedProducts.sort((a, b) => a.rate - b.rate);
+        sortedProducts.sort((a, b) => a.price - b.price);
         break;
       case 'price-desc':
-        sortedProducts.sort((a, b) => b.rate - a.rate);
+        sortedProducts.sort((a, b) => b.price - a.price);
         break;
       default:
         // Default sorting logic if needed
@@ -61,11 +61,11 @@ const Product = ({fetch}) => {
       <Filter product={product} fetch={fetch} setProduct={setProduct} />
       <div className="p-12 leading-loose col-start-2 col-end-6">
         <header className="leading-loose m-8">
-          <p className="text-xs">Home / Shop</p>
+          <p className="text-xs"  >Home / Shop</p>
           <h1 className="text-red-400 text-4xl">Shop</h1>
         </header>
         <div className="">
-          <div className="flex justify-between m-8">
+          <div className="sm:flex justify-between m-8">
             <p>{`Showing 1–9 of ${product.length} results`}</p>
             <form className="" onSubmit={handleSubmit} method="get">
               <select
@@ -82,20 +82,22 @@ const Product = ({fetch}) => {
                 <option value="price">Sort by price: low to high</option>
                 <option value="price-desc">Sort by price: high to low</option>
               </select>
-              <input type="hidden" name="paged" value="1" />
-              <button type="submit" className="ml-2 p-2 bg-blue-500 text-white rounded">
+              <input type="hidden" name="paged" value="1"  />
+              <button type="submit" className="ml-2 px-2 m-2 py-1 bg-blue-500 text-white rounded">
                 Apply
               </button>
             </form>
           </div>
           <div className="sm:grid grid-cols-3 gap-4">
             {product.slice(visible, visible + 9).map((item) => (
-                <div key={item.id} className="">
+                <div key={item.product_id} className="">
                  <Link to={{
-                    pathname: `/allproduct/${item.id}`
-                  }}>
+                    pathname: `/allproduct/${item.product_id}`
+                  }}
+                  state={{product_src:item.product_src,name:item.name,description:item.description,price:item.price,design:item.design,product_id:item.product_id}}
+                  >
                     <img
-                    src={item.url}
+                    src={`https://e-com-server-1-9p85.onrender.com/upload/${item.product_src}`}
                     alt={item.name}
                     className="w-full h-auto object-cover"
                     />
@@ -103,7 +105,7 @@ const Product = ({fetch}) => {
                     <p className="text-lg font-thin">{item.name}</p>
                     <h2 className="font-bold text-sm text-gray-600">{item.design}</h2>
                     <p>☆☆☆☆☆</p>
-                    <p className="text-red-500">{item.rate}</p>
+                    <p className="text-red-500">{item.price}</p>
                     </div>
                     </Link>
                 </div>

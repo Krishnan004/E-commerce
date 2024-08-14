@@ -4,6 +4,7 @@ import Fashionview from './homeComponenet/Fashionview';
 import Mug from './homeComponenet/Mug';
 import Dealshopnow from './homeComponenet/Dealshopnow';
 import Clientreview from './homeComponenet/Clientreview';
+import Mug2 from './homeComponenet/Mug2';
 
 
 const Mainhome = () => {
@@ -13,7 +14,7 @@ const Mainhome = () => {
             <Fashionview/>
             <Mug/>
             <Dealshopnow/>
-            <Mug/>
+            <Mug2/>
             <Clientreview/>
         </div>
     )
