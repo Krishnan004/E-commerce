@@ -19,6 +19,7 @@ import Sigin from './accountComponent/Sigin';
 
 function App() {
   const [cartItem,setCartItem]=useState([])
+  const [auth,setAuth]=useState(false)
   const [user_id,setUser_id]=useState()
   const [username,setUsername]=useState()
   const [email,setEmail]=useState()
@@ -106,7 +107,7 @@ function App() {
   return (
     <div className="font-poppins">
       <Router>
-        <Header  cartItem={cartItem} setCartItem={setCartItem} />
+        <Header  cartItem={cartItem} setCartItem={setCartItem} auth={auth} setAuth={setAuth} />
           <Routes>
             <Route path="/" element={<Mainhome />} />
             <Route path="/allproduct" element={<Product fetch={fetch}   />} />
@@ -115,7 +116,7 @@ function App() {
             <Route path="/myaccount" element={<MyAccount setEmail={setEmail} setUsername={setUsername} user_id={user_id} setUser_id={setUser_id} setCartItem={setCartItem} />} />
             <Route path="/cart" element={<Cart  cartItem={cartItem} setCartItem={setCartItem}/>} />
             <Route path="/cart/checkout" element={<Proceed email={email} user_id={user_id}/>}/>
-            <Route path="/allproduct/:id" element={<ViewProduct username={username} email={email} user_id={user_id} fetch={fetch} cartItem={cartItem} setCartItem={setCartItem} />} />
+            <Route path="/allproduct/:id" element={<ViewProduct auth={auth} setAuth={setAuth} username={username} email={email} user_id={user_id} fetch={fetch} cartItem={cartItem} setCartItem={setCartItem} />} />
             <Route path="/cart/checkout/placeorder" element={<CashOnDelivery/>}/>
             <Route path="/register" element={<Sigin/>} />
           </Routes>

@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import api from '../api/mainurl';
 import { FaStar } from "react-icons/fa";
 
-const ViewProduct = ({username,email, fetch, setCartItem, cartItem,user_id } ) => {
+const ViewProduct = ({username,email, fetch, setCartItem, cartItem,user_id,auth,setAuth } ) => {
   const location = useLocation();
   const [rating,setRating]=useState(null)
   const [hover,sethover]=useState(null)
@@ -44,6 +44,7 @@ const ViewProduct = ({username,email, fetch, setCartItem, cartItem,user_id } ) =
     if (!user_id) {
       console.log('User is not authenticated or user_id is missing.');
       // Optionally handle this case, e.g., redirect to login or display a message.
+      setAuth(true)
       return;
     }
     if ((!cartItem.some((i) => i.product_id === product_id) && user_id ) || cartItem.length==0) {
