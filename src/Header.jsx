@@ -131,7 +131,7 @@ const Header = ({ cartItem, setCartItem,auth,setAuth }) => {
         </div>
       </div>
       {auth&&
-      <div className="flex flex-col justify-center items-center absolute top-20 right-1/2 transform translate-x-1/2 bg-white border rounded-xl p-2 w-1/3">
+      <div className="flex flex-col justify-center items-center absolute top-20 right-1/2 transform translate-x-1/2 bg-white border rounded-xl p-2 w-full sm:w-1/3 ">
           <p>Please login your account</p>
           <div>
           <button className="mt-4 border-2 border-white text-white bg-red-500 rounded-xl p-2 hover:bg-red-600" onClick={()=>setAuth(false)}>

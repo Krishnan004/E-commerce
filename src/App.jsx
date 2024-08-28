@@ -19,7 +19,7 @@ import Sigin from './accountComponent/Sigin';
 
 function App() {
   const [cartItem,setCartItem]=useState([])
-  const [auth,setAuth]=useState(false)
+  const [auth,setAuth]=useState(true)
   const [user_id,setUser_id]=useState()
   const [username,setUsername]=useState()
   const [email,setEmail]=useState()
