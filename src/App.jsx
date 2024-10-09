@@ -53,7 +53,7 @@ function App() {
       try {
         const response = await api.get('/product');
         const responsecart = await api.get('/cart', { params: { user_id } });
-        console.log(responsecart.data);
+        console.log(response.data);
         setFetch(response.data);
         setCartItem(responsecart.data);
       } catch (error) {
