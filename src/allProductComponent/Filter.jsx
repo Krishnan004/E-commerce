@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import api from '../api/mainurl';
 import { Link } from 'react-router-dom';
+import Loading from '../Loading';
 
 const Filter = ({ setProduct, fetch, product }) => {
     const [min,setMin]=useState(0);
@@ -114,6 +115,9 @@ const Filter = ({ setProduct, fetch, product }) => {
             </div>
             <div >
                 <h1 className="text-xl">Hottest Deals</h1>
+                {deal.length==0 &&
+                     <Loading/>
+                }
                 <div className="grid grid-cols-2">
                 
                     {deal.map((item, index) => (

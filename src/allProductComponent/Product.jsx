@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Filter from './Filter';
 import { Link } from 'react-router-dom';
+import Loading from '../Loading';
 
 const Product = ({fetch}) => {
   
@@ -57,8 +58,10 @@ const Product = ({fetch}) => {
   };
 
   return (
-    <div className="sm:grid grid-cols-4 bg-custom-gradient">
+    <div >
+      <div className="sm:grid grid-cols-4 bg-custom-gradient">
       <Filter product={product} fetch={fetch} setProduct={setProduct} />
+     
       <div className="p-12 leading-loose col-start-2 col-end-6">
         <header className="leading-loose m-8">
           <p className="text-xs"  >Home / Shop</p>
@@ -88,6 +91,9 @@ const Product = ({fetch}) => {
               </button>
             </form>
           </div>
+          {product.length==0 &&
+          <Loading/>
+          }
           <div className="sm:grid grid-cols-3 gap-4">
             {product.slice(visible, visible + 9).map((item) => (
                 <div key={item.product_id} className="">
@@ -122,6 +128,7 @@ const Product = ({fetch}) => {
             </button>
           ))}
         </div>
+      </div>
       </div>
     </div>
   );
