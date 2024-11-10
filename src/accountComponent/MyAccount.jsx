@@ -15,6 +15,7 @@ const MyAccount = ({ setUsername, setEmail, user_id, setUser_id, setCartItem }) 
 
     axios.defaults.withCredentials = true;
 
+    // Account login 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const { password, email } = values; // Ensure values is defined and contains email and password

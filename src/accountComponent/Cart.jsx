@@ -60,7 +60,7 @@ const Cart = ({ cartItem, setCartItem }) => {
                 {cartItem.map((item) => (
                   <tr key={item.cart_id} className="border-t grid grid-cols-1 sm:table-row">
                     <td className="py-2 px-4">
-                      <img src={`https://e-com-server-1-9p85.onrender.com/upload/${item.product_src}`} alt={item.name} className="w-16 h-16 object-cover" />
+                      <img src={`https://e-com-server-2.onrender.com/upload/${item.product_src}`} alt={item.name} className="w-16 h-16 object-cover" />
                     </td>
                     <td className="py-2 px-4"><span className="font-semibold sm:hidden">Product : </span>{item.name}</td>
                     <td className="py-2 px-4"><span className="font-semibold sm:hidden">Price : </span>{item.price}</td>

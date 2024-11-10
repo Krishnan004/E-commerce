@@ -7,6 +7,8 @@ const Mug = () => {
     const [product,setProduct]=useState([])
 
     useEffect(()=>{
+
+        // fetch home page promoting product details
         const fetchdata=async()=>{
             try {
                 const response=await api.get("/homeproduct")
@@ -29,7 +31,7 @@ const Mug = () => {
             <div className="sm:flex justify-around gap-8 text-gray-500 p-6">
             {product.slice(0,4).map(item=>(
                 <div key={item.product_id}>
-                    <img src={`https://e-com-server-1-9p85.onrender.com/upload/${item.product_src}`} alt="" className="size-64"/>
+                    <img src={`https://e-com-server-2.onrender.com/upload/${item.product_src}`} alt="" className="size-64"/>
                     <div className="text-center">
                         <p>{item.product_name}</p>
                         <h2 className="font-semibold">{item.design}</h2>

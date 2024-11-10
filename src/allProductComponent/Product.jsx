@@ -103,7 +103,7 @@ const Product = ({fetch}) => {
                   state={{product_src:item.product_src,name:item.name,description:item.description,price:item.price,design:item.design,product_id:item.product_id}}
                   >
                     <img
-                    src={`https://e-com-server-1-9p85.onrender.com/upload/${item.product_src}`}
+                    src={`https://e-com-server-2.onrender.com/upload/${item.product_src}`}
                     alt={item.name}
                     className="w-full h-auto object-cover"
                     />

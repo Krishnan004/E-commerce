@@ -111,7 +111,7 @@ const Header = ({ cartItem, setCartItem,auth,setAuth }) => {
             cartItem.map((item) => (
               <div key={item.product_id} className="p-2">
                 <div className="flex justify-between items-center">
-                  <img src={`https://e-com-server-1-9p85.onrender.com/upload/${item.product_src}`} alt="" className="w-12 h-12 object-cover" />
+                  <img src={`https://e-com-server-2.onrender.com/upload/${item.product_src}`} alt="" className="w-12 h-12 object-cover" />
                   <div className="ml-4 flex-grow">
                     <p className="font-semibold">{item.design}</p>
                     <p>1 × £{item.price}</p>

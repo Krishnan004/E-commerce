@@ -20,6 +20,7 @@ const Filter = ({ setProduct, fetch, product }) => {
     const [deal, setDeal] = useState([])
 
     useEffect(()=>{
+        // fetch product details for hotdeal section in allproduct
         const fetchDeal=async()=>{
         const response=await api.get("/hotdeal")
         setDeal(response.data)
